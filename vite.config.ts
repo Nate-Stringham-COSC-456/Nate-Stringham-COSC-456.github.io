@@ -9,6 +9,7 @@ const pages = {
 
 export default defineConfig({
   build: {
+    polyfillModulePreload: false,
     rollupOptions: {
       input: {
         main: new URL("./index.html", import.meta.url).pathname,
