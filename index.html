@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nate Stringham COSC 456</title>
-    <link rel="stylesheet" href="src/styles.css" />
+    <link rel="stylesheet" href="src/index.css" />
   </head>
   <body>
     <h1>Nate Stringham COSC 456</h1>
     <nav>
       <% for (const folder in pages) { %>
-      <h2><%= folder[0].toUpperCase() + folder.substring(1)%></h2>
+      <h2><%= folder %></h2>
       <ul>
         <% for (const page of pages[folder]) { %>
-        <li><a href="<%= `/${folder}/${page}/` %>"><%= page[0].toUpperCase() + page.substring(1)%></a></li>
+        <li><a href="<%= `/${folder}/${page}/` %>"><%= page %></a></li>
         <% } %>
       </ul>
       <% } %>

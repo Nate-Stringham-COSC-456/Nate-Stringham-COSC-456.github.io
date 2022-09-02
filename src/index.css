@@ -1,0 +1,10 @@
+@import "./common.css";
+
+nav ul {
+  list-style-type: none;
+}
+
+nav h2,
+nav a {
+  text-transform: capitalize;
+}
