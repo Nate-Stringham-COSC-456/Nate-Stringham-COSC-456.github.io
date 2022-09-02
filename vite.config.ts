@@ -10,6 +10,7 @@ const pages = {
 
 export default defineConfig({
   build: {
+    sourcemap: true,
     polyfillModulePreload: false,
     rollupOptions: {
       input: {
