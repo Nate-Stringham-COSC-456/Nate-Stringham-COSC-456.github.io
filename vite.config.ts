@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 
+import { ViteEjsPlugin } from "vite-plugin-ejs";
 import glsl from "vite-plugin-glsl";
 
 const pages = {
@@ -17,7 +18,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [glsl()],
+  plugins: [ViteEjsPlugin({ pages }), glsl()],
 });
 
 function generatePageUrls() {
