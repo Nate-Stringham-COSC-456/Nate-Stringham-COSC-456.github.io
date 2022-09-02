@@ -13,7 +13,7 @@
       <h2><%= folder[0].toUpperCase() + folder.substring(1)%></h2>
       <ul>
         <% for (const page of pages[folder]) { %>
-        <li><a href="<%= `/${folder}/${page}/index.html` %>"><%= page[0].toUpperCase() + page.substring(1)%></a></li>
+        <li><a href="<%= `/${folder}/${page}/` %>"><%= page[0].toUpperCase() + page.substring(1)%></a></li>
         <% } %>
       </ul>
       <% } %>
