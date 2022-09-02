@@ -1,7 +1,13 @@
 :root {
   color-scheme: dark light;
+  box-sizing: border-box;
 }
 
 * {
   font-family: "Roboto", "-apple-system", "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
 }
