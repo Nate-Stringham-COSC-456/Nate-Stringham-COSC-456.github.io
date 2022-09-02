@@ -1,26 +1,6 @@
 import { initShaders } from "../../src/init-shaders";
-
-const vertexShaderSource = `#version 300 es
-
-    in vec4 aPosition;
-
-    void main()
-    {
-      gl_Position = aPosition;
-    }
-`;
-
-const fragmentShaderSource = `#version 300 es
-
-    precision mediump float;
-
-    out vec4  fColor;
-
-    void main()
-    {
-        fColor = vec4( 1.0, 0.0, 0.0, 1.0 );
-    }
-`;
+import vertexShaderSource from "./main.vert";
+import fragmentShaderSource from "./main.frag";
 
 const canvas = document.querySelector("canvas")!;
 

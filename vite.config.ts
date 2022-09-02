@@ -1,5 +1,7 @@
 import { defineConfig } from "vite";
 
+import glsl from "vite-plugin-glsl";
+
 const pages = {
   homework: [],
   examples: ["triangle"],
@@ -14,6 +16,7 @@ export default defineConfig({
       },
     },
   },
+  plugins: [glsl()],
 });
 
 function generatePageUrls() {
