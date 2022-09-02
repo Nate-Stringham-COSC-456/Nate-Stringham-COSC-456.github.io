@@ -1,0 +1,11 @@
+:root {
+  color-scheme: dark light;
+}
+
+* {
+  font-family: "Roboto", "-apple-system", "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+nav ul {
+  list-style-type: none;
+}

@@ -13,7 +13,7 @@ if (gl == undefined) {
 const points = new Float32Array([-1, -1, 0, 1, 1, -1]);
 
 gl.viewport(0, 0, canvas.width, canvas.height);
-gl.clearColor(1, 1, 1, 1);
+gl.clearColor(0, 0, 0, 0);
 
 const program = initShaders(gl, vertexShaderSource, fragmentShaderSource);
 gl.useProgram(program);
