@@ -14,7 +14,7 @@ export default defineConfig({
     polyfillModulePreload: false,
     rollupOptions: {
       input: {
-        main: new URL("./index.html", import.meta.url).pathname,
+        index: new URL("./index.html", import.meta.url).pathname,
         ...generatePageUrls(),
       },
     },
