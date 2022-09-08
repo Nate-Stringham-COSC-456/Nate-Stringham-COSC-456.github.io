@@ -36,8 +36,6 @@ for (let i = 0; i < positions.length / 3; i++) {
   colors.push(colorPalette[i % 4]);
 }
 
-console.log(colors);
-
 gl.viewport(0, 0, canvas.width, canvas.height);
 gl.clearColor(0.0, 0.0, 0.0, 0.0);
 
