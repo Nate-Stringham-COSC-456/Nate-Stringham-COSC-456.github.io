@@ -5,7 +5,7 @@ import glsl from "vite-plugin-glsl";
 
 const pages = {
   homework: [],
-  examples: ["triangle"],
+  examples: ["triangle", "2d-sierpinski-gasket"],
 };
 
 export default defineConfig({

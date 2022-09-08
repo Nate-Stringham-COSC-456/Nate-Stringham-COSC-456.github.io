@@ -13,7 +13,7 @@
       <h2><%= folder %></h2>
       <ul>
         <% for (const page of pages[folder]) { %>
-        <li><a href="<%= `/${folder}/${page}/` %>"><%= page %></a></li>
+        <li><a href="<%= `/${folder}/${page}/` %>"><%= page.replaceAll("-", " ") %></a></li>
         <% } %>
       </ul>
       <% } %>
