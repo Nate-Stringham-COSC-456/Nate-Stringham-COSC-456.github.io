@@ -6,6 +6,8 @@ import fragmentShaderSource from "./main.frag";
 const numTimesToSubdivide = 5;
 
 const canvas = document.querySelector("canvas")!;
+canvas.width = Math.floor(canvas.clientWidth * window.devicePixelRatio);
+canvas.height = Math.floor(canvas.clientHeight * window.devicePixelRatio);
 
 const gl = canvas.getContext("webgl2");
 
