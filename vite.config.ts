@@ -20,7 +20,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [ViteEjsPlugin({ pages }), glsl()],
+  plugins: [ViteEjsPlugin({ pages }), glsl({ compress: true })],
 });
 
 function generatePageUrls() {
