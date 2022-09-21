@@ -33,4 +33,17 @@ export class Shape extends Array<Vec2> {
       point[1] += y;
     }
   }
+
+  rotate(radians: number) {
+    const cos = Math.cos(radians);
+    const sin = Math.sin(radians);
+
+    for (const point of this) {
+      const x = point[0];
+      const y = point[1];
+
+      point[0] = x * cos - y * sin;
+      point[1] = x * sin + y * cos;
+    }
+  }
 }

@@ -1,0 +1,16 @@
+@import "../../src/common.css";
+
+body {
+  margin: 0;
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  place-content: center;
+}
+
+canvas {
+  height: 90vmin;
+  height: 90dvmin;
+  width: 90vmin;
+  width: 90dvmin;
+}
