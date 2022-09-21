@@ -1,7 +1,8 @@
 import { initShaders } from "../../src/init-shaders";
 import vertexShaderSource from "./main.vert";
 import fragmentShaderSource from "./main.frag";
-import { flatten, Vec2, Vec3 } from "../../src/mv";
+import { flatten, Vec3 } from "../../src/mv";
+import { Shape } from "../../src/shape";
 
 const canvas = document.querySelector("canvas")!;
 canvas.width = Math.floor(canvas.clientWidth * window.devicePixelRatio);
@@ -21,36 +22,7 @@ gl.useProgram(program);
 
 gl.clear(gl.COLOR_BUFFER_BIT);
 
-function createRegularPolygon(numberOfSides: number, startingAngle = 0): Vec2[] {
-  const angleIncrement = (2 * Math.PI) / numberOfSides;
-
-  const points: Vec2[] = [];
-
-  for (let i = 0; i < numberOfSides; i++) {
-    const angle = startingAngle + i * angleIncrement;
-    points.push(new Vec2(Math.cos(angle), Math.sin(angle)));
-  }
-
-  return points;
-}
-
-function scaleShape(shape: Vec2[], scaleX: number, scaleY?: number) {
-  scaleY ??= scaleX;
-
-  for (const point of shape) {
-    point[0] *= scaleX;
-    point[1] *= scaleY;
-  }
-}
-
-function translateShape(shape: Vec2[], x: number, y: number) {
-  for (const point of shape) {
-    point[0] += x;
-    point[1] += y;
-  }
-}
-
-function drawShape(gl: WebGL2RenderingContext, points: Vec2[], color: Vec3 | Vec3[]) {
+function drawShape(gl: WebGL2RenderingContext, points: Shape, color: Vec3 | Vec3[]) {
   const colors = Array.isArray(color) ? color : new Array(points.length).fill(color);
 
   if (points.length !== colors.length) {
@@ -82,39 +54,39 @@ const blue = new Vec3(0, 0, 1);
 const black = new Vec3(0, 0, 0);
 const white = new Vec3(1, 1, 1);
 
-const triangle = createRegularPolygon(3, Math.PI / 2);
+const triangle = Shape.regularPolygon(3, Math.PI / 2);
 
-scaleShape(triangle, 1 / 3);
+triangle.scale(1 / 3);
 
-translateShape(triangle, 0, 2 / 3);
+triangle.translate(0, 2 / 3);
 
 drawShape(gl, triangle, [red, green, blue]);
 
 for (let i = 0; i < 7; i++) {
-  const square = createRegularPolygon(4, Math.PI / 4);
+  const square = Shape.regularPolygon(4, Math.PI / 4);
 
-  scaleShape(square, ((Math.sqrt(2) * 2) / 3) * ((7 - i) / 7));
+  square.scale(((Math.sqrt(2) * 2) / 3) * ((7 - i) / 7));
 
-  translateShape(square, 0, -1 / 3);
+  square.translate(0, -1 / 3);
 
   drawShape(gl, square, i % 2 == 0 ? black : white);
 }
 
 const numberOfSidesOfCircle = 512;
 
-const ellipse = createRegularPolygon(numberOfSidesOfCircle);
+const ellipse = Shape.regularPolygon(numberOfSidesOfCircle);
 
-scaleShape(ellipse, 1 / 3, 1 / 6);
+ellipse.scale(1 / 3, 1 / 6);
 
-translateShape(ellipse, -2 / 3, 2 / 3);
+ellipse.translate(-2 / 3, 2 / 3);
 
 drawShape(gl, ellipse, red);
 
-const circle = createRegularPolygon(numberOfSidesOfCircle);
+const circle = Shape.regularPolygon(numberOfSidesOfCircle);
 
-scaleShape(circle, 1 / 4);
+circle.scale(1 / 4);
 
-translateShape(circle, 2 / 3, 2 / 3);
+circle.translate(2 / 3, 2 / 3);
 
 const fadeFRomBlackToRed: Vec3[] = [];
 for (let i = 0; i < numberOfSidesOfCircle; i++) {
