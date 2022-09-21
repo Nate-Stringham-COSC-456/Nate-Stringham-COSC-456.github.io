@@ -57,7 +57,6 @@ const darkCyan = new Vec3(0, 0.5, 0.5);
 const blue = new Vec3(0, 0, 1);
 const magenta = new Vec3(1, 0, 1);
 const darkMagenta = new Vec3(0.5, 0, 0.5);
-const black = new Vec3(0, 0, 0);
 const white = new Vec3(1, 1, 1);
 
 const hexagon = Shape.regularPolygon(6, Math.PI / 2);
