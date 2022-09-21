@@ -76,7 +76,7 @@ const numberOfSidesOfCircle = 512;
 
 const ellipse = Shape.regularPolygon(numberOfSidesOfCircle);
 
-ellipse.scale(1 / 3, 1 / 6);
+ellipse.scale(1 / 3, 1 / 5);
 
 ellipse.translate(-2 / 3, 2 / 3);
 
