@@ -16,5 +16,5 @@
     "noImplicitReturns": true,
     "skipLibCheck": true
   },
-  "include": ["src", "examples", "homework", "global.d.ts"]
+  "include": ["src", "examples", "assignments", "global.d.ts"]
 }

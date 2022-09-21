@@ -4,7 +4,7 @@ import { ViteEjsPlugin } from "vite-plugin-ejs";
 import glsl from "vite-plugin-glsl";
 
 const pages = {
-  homework: [],
+  assignments: [],
   examples: ["triangle", "square", "2d-sierpinski-gasket", "3d-sierpinski-gasket"],
 };
 
