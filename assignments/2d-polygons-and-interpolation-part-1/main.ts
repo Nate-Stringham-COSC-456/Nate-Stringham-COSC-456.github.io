@@ -93,9 +93,9 @@ drawShape(gl, triangle, [red, green, blue]);
 for (let i = 0; i < 7; i++) {
   const square = createRegularPolygon(4, Math.PI / 4);
 
-  scaleShape(square, (Math.sqrt(2) / 2) * ((7 - i) / 7));
+  scaleShape(square, ((Math.sqrt(2) * 2) / 3) * ((7 - i) / 7));
 
-  translateShape(square, 0, -1 / 2);
+  translateShape(square, 0, -1 / 3);
 
   drawShape(gl, square, i % 2 == 0 ? black : white);
 }
