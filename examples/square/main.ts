@@ -21,8 +21,6 @@ gl.clearColor(0, 0, 0, 0);
 const program = initShaders(gl, vertexShaderSource, fragmentShaderSource);
 gl.useProgram(program);
 
-console.log(flatten(vertices));
-
 const buffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
 gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
