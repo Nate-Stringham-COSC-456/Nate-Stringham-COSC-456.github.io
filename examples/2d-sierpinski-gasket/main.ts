@@ -1,5 +1,5 @@
 import { initShaders } from "../../src/init-shaders";
-import { flatten, mix, Vec2 } from "../../src/mv";
+import { flatten, mix, Vec2 } from "../../src/vector";
 import vertexShaderSource from "./main.vert";
 import fragmentShaderSource from "./main.frag";
 

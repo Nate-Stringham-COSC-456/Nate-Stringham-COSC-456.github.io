@@ -1,7 +1,7 @@
 import { initShaders } from "../../src/init-shaders";
 import vertexShaderSource from "./main.vert";
 import fragmentShaderSource from "./main.frag";
-import { flatten, Vec3 } from "../../src/mv";
+import { flatten, Vec3 } from "../../src/vector";
 import { Shape } from "../../src/shape";
 
 const canvas = document.querySelector("canvas")!;

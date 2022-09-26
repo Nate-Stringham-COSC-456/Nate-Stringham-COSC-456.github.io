@@ -1,4 +1,4 @@
-import { Vec2 } from "./mv";
+import { Vec2 } from "./vector";
 
 export class Shape extends Array<Vec2> {
   constructor(...points: Vec2[]) {
