@@ -5,7 +5,7 @@ import glsl from "vite-plugin-glsl";
 
 const pages = {
   assignments: ["2d-polygons-and-interpolation-part-1", "2d-polygons-and-interpolation-part-2"],
-  examples: ["triangle", "square", "2d-sierpinski-gasket", "3d-sierpinski-gasket"],
+  examples: ["triangle", "square", "2d-sierpinski-gasket", "3d-sierpinski-gasket", "rotating-square"],
 };
 
 export default defineConfig({
