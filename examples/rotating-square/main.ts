@@ -16,7 +16,7 @@ const speedInput = document.querySelector("#speed") as HTMLInputElement;
 let speed = parseFloat(speedInput.value);
 
 speedInput.addEventListener("input", () => {
-  speed = Number(speedInput.value);
+  speed = parseFloat(speedInput.value);
 });
 
 const canvas = document.querySelector("canvas")!;
