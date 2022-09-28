@@ -4,7 +4,11 @@ import { ViteEjsPlugin } from "vite-plugin-ejs";
 import glsl from "vite-plugin-glsl";
 
 const pages = {
-  assignments: ["2d-polygons-and-interpolation-part-1", "2d-polygons-and-interpolation-part-2"],
+  assignments: [
+    "2d-polygons-and-interpolation-part-1",
+    "2d-polygons-and-interpolation-part-2",
+    "colored-rotating-square",
+  ],
   examples: ["triangle", "square", "2d-sierpinski-gasket", "3d-sierpinski-gasket", "rotating-square", "drawing"],
 };
 
