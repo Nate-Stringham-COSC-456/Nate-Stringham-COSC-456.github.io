@@ -3,8 +3,6 @@ import { Vec2, Vec3 } from "../../src/vector";
 import vertexShaderSource from "./main.vert";
 import fragmentShaderSource from "./main.frag";
 
-const maxPoints = 2048;
-
 function hexToRgb(hex: string) {
   const int = parseInt(hex.substring(1), 16);
   return new Vec3((int >> 16) / 255, ((int >> 8) & 0xff) / 255, (int & 0xff) / 255);
@@ -37,9 +35,11 @@ gl.useProgram(program);
 const uPointSize = gl.getUniformLocation(program, "uPointSize");
 gl.uniform1f(uPointSize, window.devicePixelRatio * 12);
 
+let bufferSize = 512;
+
 const colorBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-gl.bufferData(gl.ARRAY_BUFFER, 3 * 4 * maxPoints, gl.STATIC_DRAW);
+gl.bufferData(gl.ARRAY_BUFFER, Vec3.byteLength * bufferSize, gl.STATIC_DRAW);
 
 const aColor = gl.getAttribLocation(program, "aColor");
 gl.vertexAttribPointer(aColor, 3, gl.FLOAT, false, 0, 0);
@@ -47,18 +47,36 @@ gl.enableVertexAttribArray(aColor);
 
 const vertexBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-gl.bufferData(gl.ARRAY_BUFFER, 2 * 4 * maxPoints, gl.STATIC_DRAW);
+gl.bufferData(gl.ARRAY_BUFFER, Vec2.byteLength * bufferSize, gl.STATIC_DRAW);
 
 const aPosition = gl.getAttribLocation(program, "aPosition");
 gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
 gl.enableVertexAttribArray(aPosition);
 
+const swapBuffer = gl.createBuffer();
+function doubleBufferSize() {
+  gl.bindBuffer(gl.COPY_WRITE_BUFFER, swapBuffer);
+  gl.bufferData(gl.COPY_WRITE_BUFFER, Vec3.byteLength * bufferSize, gl.STREAM_COPY);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  gl.copyBufferSubData(gl.ARRAY_BUFFER, gl.COPY_WRITE_BUFFER, 0, 0, Vec3.byteLength * bufferSize);
+  gl.bufferData(gl.ARRAY_BUFFER, Vec3.byteLength * bufferSize * 2, gl.STATIC_DRAW);
+  gl.copyBufferSubData(gl.COPY_WRITE_BUFFER, gl.ARRAY_BUFFER, 0, 0, Vec3.byteLength * bufferSize);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.copyBufferSubData(gl.ARRAY_BUFFER, gl.COPY_WRITE_BUFFER, 0, 0, Vec2.byteLength * bufferSize);
+  gl.bufferData(gl.ARRAY_BUFFER, Vec2.byteLength * bufferSize * 2, gl.STATIC_DRAW);
+  gl.copyBufferSubData(gl.COPY_WRITE_BUFFER, gl.ARRAY_BUFFER, 0, 0, Vec2.byteLength * bufferSize);
+
+  bufferSize *= 2;
+}
+
 let index = 0;
 function addPoint(point: Vec2) {
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-  gl.bufferSubData(gl.ARRAY_BUFFER, color.byteLength * (index % maxPoints), color);
+  gl.bufferSubData(gl.ARRAY_BUFFER, color.byteLength * index, color);
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-  gl.bufferSubData(gl.ARRAY_BUFFER, point.byteLength * (index % maxPoints), point);
+  gl.bufferSubData(gl.ARRAY_BUFFER, point.byteLength * index, point);
   index++;
 }
 
@@ -68,11 +86,15 @@ function render() {
 
   requestAnimationFrame(() => {
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.POINTS, 0, Math.min(index, maxPoints));
+    gl.drawArrays(gl.POINTS, 0, index);
   });
 }
 
 function addPointFromEvent(event: { clientX: number; clientY: number }) {
+  if (index >= bufferSize) {
+    doubleBufferSize();
+  }
+
   const x = (2 * event.clientX) / canvas.clientWidth - 1;
   const y = (2 * (canvas.clientHeight - event.clientY)) / canvas.clientHeight - 1;
   addPoint(new Vec2(x, y));

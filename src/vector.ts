@@ -1,4 +1,6 @@
 export class Vec2 extends Float32Array {
+  static readonly byteLength = 2 * 4;
+
   constructor(...args: [] | [Vec2] | [number, number]) {
     if (args.length === 0) {
       super(2);
@@ -13,6 +15,8 @@ export class Vec2 extends Float32Array {
 }
 
 export class Vec3 extends Float32Array {
+  static readonly byteLength = 3 * 4;
+
   constructor(...args: [] | [Vec3] | [number, number, number]) {
     if (args.length === 0) {
       super(3);
@@ -27,6 +31,8 @@ export class Vec3 extends Float32Array {
 }
 
 export class Vec4 extends Float32Array {
+  static readonly byteLength = 4 * 4;
+
   constructor(...args: [] | [Vec4] | [number, number, number, number]) {
     if (args.length === 0) {
       super(4);
