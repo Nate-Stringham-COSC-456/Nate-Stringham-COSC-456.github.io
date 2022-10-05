@@ -12,6 +12,18 @@ export class Vec2 extends Float32Array {
       throw new Error("Invalid number of arguments");
     }
   }
+
+  equals(other: Vec2): boolean {
+    return this[0] === other[0] && this[1] === other[1];
+  }
+
+  add(other: Vec2): Vec2 {
+    return new Vec2(this[0] + other[0], this[1] + other[1]);
+  }
+
+  subtract(other: Vec2): Vec2 {
+    return new Vec2(this[0] - other[0], this[1] - other[1]);
+  }
 }
 
 export class Vec3 extends Float32Array {
@@ -28,6 +40,18 @@ export class Vec3 extends Float32Array {
       throw new Error("Invalid number of arguments");
     }
   }
+
+  equals(other: Vec3): boolean {
+    return this[0] === other[0] && this[1] === other[1] && this[2] === other[2];
+  }
+
+  add(other: Vec3): Vec3 {
+    return new Vec3(this[0] + other[0], this[1] + other[1], this[2] + other[2]);
+  }
+
+  subtract(other: Vec3): Vec3 {
+    return new Vec3(this[0] - other[0], this[1] - other[1], this[2] - other[2]);
+  }
 }
 
 export class Vec4 extends Float32Array {
@@ -43,6 +67,18 @@ export class Vec4 extends Float32Array {
     } else {
       throw new Error("Invalid number of arguments");
     }
+  }
+
+  equals(other: Vec4): boolean {
+    return this[0] === other[0] && this[1] === other[1] && this[2] === other[2] && this[3] === other[3];
+  }
+
+  add(other: Vec4): Vec4 {
+    return new Vec4(this[0] + other[0], this[1] + other[1], this[2] + other[2], this[3] + other[3]);
+  }
+
+  subtract(other: Vec4): Vec4 {
+    return new Vec4(this[0] - other[0], this[1] - other[1], this[2] - other[2], this[3] - other[3]);
   }
 }
 
