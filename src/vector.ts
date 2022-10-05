@@ -24,6 +24,18 @@ export class Vec2 extends Float32Array {
   subtract(other: Vec2): Vec2 {
     return new Vec2(this[0] - other[0], this[1] - other[1]);
   }
+
+  scale(other: number): Vec2 {
+    return new Vec2(this[0] * other, this[1] * other);
+  }
+
+  multiply(other: Vec2): Vec2 {
+    return new Vec2(this[0] * other[0], this[1] * other[1]);
+  }
+
+  dot(other: Vec2): number {
+    return this[0] * other[0] + this[1] * other[1];
+  }
 }
 
 export class Vec3 extends Float32Array {
@@ -52,6 +64,26 @@ export class Vec3 extends Float32Array {
   subtract(other: Vec3): Vec3 {
     return new Vec3(this[0] - other[0], this[1] - other[1], this[2] - other[2]);
   }
+
+  scale(other: number): Vec3 {
+    return new Vec3(this[0] * other, this[1] * other, this[2] * other);
+  }
+
+  multiply(other: Vec3): Vec3 {
+    return new Vec3(this[0] * other[0], this[1] * other[1], this[2] * other[2]);
+  }
+
+  cross(other: Vec3): Vec3 {
+    return new Vec3(
+      this[1] * other[2] - this[2] * other[1],
+      this[2] * other[0] - this[0] * other[2],
+      this[0] * other[1] - this[1] * other[0]
+    );
+  }
+
+  dot(other: Vec3): number {
+    return this[0] * other[0] + this[1] * other[1] + this[2] * other[2];
+  }
 }
 
 export class Vec4 extends Float32Array {
@@ -79,6 +111,18 @@ export class Vec4 extends Float32Array {
 
   subtract(other: Vec4): Vec4 {
     return new Vec4(this[0] - other[0], this[1] - other[1], this[2] - other[2], this[3] - other[3]);
+  }
+
+  scale(other: number): Vec4 {
+    return new Vec4(this[0] * other, this[1] * other, this[2] * other, this[3] * other);
+  }
+
+  multiply(other: Vec4): Vec4 {
+    return new Vec4(this[0] * other[0], this[1] * other[1], this[2] * other[2], this[3] * other[3]);
+  }
+
+  dot(other: Vec4): number {
+    return this[0] * other[0] + this[1] * other[1] + this[2] * other[2] + this[3] * other[3];
   }
 }
 
