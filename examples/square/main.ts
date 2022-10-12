@@ -9,7 +9,7 @@ canvas.height = Math.floor(canvas.clientHeight * window.devicePixelRatio);
 
 const gl = canvas.getContext("webgl2");
 
-if (gl == undefined) {
+if (gl == null) {
   throw new Error("WebGL2 not supported");
 }
 
