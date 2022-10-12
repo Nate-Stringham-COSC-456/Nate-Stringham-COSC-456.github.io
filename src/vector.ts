@@ -148,11 +148,20 @@ export function mix<T extends number | Vec2 | Vec3 | Vec4>(u: T, v: T, s: number
   }
 }
 
-export function flatten(list: Float32Array[]) {
-  const size = list[0].length;
-  const array = new Float32Array(list.length * size);
-  for (let i = 0; i < list.length; i++) {
-    array.set(list[i], i * size);
+/**
+ * converts a homogenous array or vectors to a single Float32Array
+ * @param vectors homogenous array or vectors
+ * @returns each of the vectors concatenated into a single buffer
+ *
+ * @example
+ * const points = [new Vec2(0, 0), new Vec2(1, 0), new Vec2(1, 1), new Vec2(0, 1)];
+ * gl.bufferData(gl.ARRAY_BUFFER, flatten(points), gl.STATIC_DRAW);
+ */
+export function flatten<T extends Vec2 | Vec3 | Vec4>(vectors: T[]): Float32Array {
+  const size = vectors[0].length;
+  const array = new Float32Array(vectors.length * size);
+  for (let i = 0; i < vectors.length; i++) {
+    array.set(vectors[i], i * size);
   }
   return array;
 }
