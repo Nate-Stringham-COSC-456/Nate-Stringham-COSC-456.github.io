@@ -1,0 +1,25 @@
+@import "../../src/common.css";
+
+#controls {
+  position: absolute;
+  grid-template-columns: 1fr 1fr 1fr;
+  top: 24px;
+  left: 24px;
+  display: grid;
+  gap: 12px;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  place-content: center;
+}
+
+canvas {
+  height: 90vmin;
+  height: 90dvmin;
+  width: 90vmin;
+  width: 90dvmin;
+}

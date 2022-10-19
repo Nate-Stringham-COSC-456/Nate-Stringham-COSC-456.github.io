@@ -9,7 +9,15 @@ const pages = {
     "2d-polygons-and-interpolation-part-2",
     "colored-rotating-square",
   ],
-  examples: ["triangle", "square", "2d-sierpinski-gasket", "3d-sierpinski-gasket", "rotating-square", "drawing"],
+  examples: [
+    "triangle",
+    "square",
+    "2d-sierpinski-gasket",
+    "3d-sierpinski-gasket",
+    "rotating-square",
+    "drawing",
+    "rotating-cube",
+  ],
 };
 
 export default defineConfig({
