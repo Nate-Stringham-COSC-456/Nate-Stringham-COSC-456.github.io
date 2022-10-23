@@ -97,3 +97,34 @@ export function flattenColumnMajor(matrix: Mat2 | Mat3 | Mat4): Float32Array {
   }
   return array;
 }
+
+export function lookAt(eye: Vec3, at: Vec3, up: Vec3): Mat4 {
+  if (eye.equals(at)) {
+    throw new Error("eye and at cannot be the same");
+  }
+
+  const view = at.subtract(eye).normalize();
+  const right = view.cross(up).normalize();
+  const newUp = right.cross(view).normalize();
+
+  return new Mat4(
+    new Vec4(right[0], right[1], right[2], -right.dot(eye)),
+    new Vec4(newUp[0], newUp[1], newUp[2], -newUp.dot(eye)),
+    new Vec4(-view[0], -view[1], -view[2], view.dot(eye)),
+    new Vec4(0, 0, 0, 1)
+  );
+}
+
+export function perspectiveMatrix(fovy: number, aspect: number, near: number, far: number) {
+  const f = 1.0 / Math.tan(fovy / 2);
+  const d = far - near;
+
+  const result = new Mat4();
+  result[0][0] = f / aspect;
+  result[1][1] = f;
+  result[2][2] = -(near + far) / d;
+  result[2][3] = (-2 * near * far) / d;
+  result[3][2] = -1;
+
+  return result;
+}
