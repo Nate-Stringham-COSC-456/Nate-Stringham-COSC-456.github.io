@@ -36,6 +36,10 @@ export class Vec2 extends Float32Array {
   dot(other: Vec2): number {
     return this[0] * other[0] + this[1] * other[1];
   }
+
+  normalize(): Vec2 {
+    return this.scale(1 / Math.sqrt(this.dot(this)));
+  }
 }
 
 export class Vec3 extends Float32Array {
@@ -84,6 +88,10 @@ export class Vec3 extends Float32Array {
   dot(other: Vec3): number {
     return this[0] * other[0] + this[1] * other[1] + this[2] * other[2];
   }
+
+  normalize(): Vec3 {
+    return this.scale(1 / Math.sqrt(this.dot(this)));
+  }
 }
 
 export class Vec4 extends Float32Array {
@@ -123,6 +131,10 @@ export class Vec4 extends Float32Array {
 
   dot(other: Vec4): number {
     return this[0] * other[0] + this[1] * other[1] + this[2] * other[2] + this[3] * other[3];
+  }
+
+  normalize(): Vec4 {
+    return this.scale(1 / Math.sqrt(this.dot(this)));
   }
 }
 
