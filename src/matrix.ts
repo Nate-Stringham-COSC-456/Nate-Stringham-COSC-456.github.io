@@ -18,6 +18,10 @@ export class Mat2 extends Array<Vec2> {
       throw new Error("Invalid number of arguments");
     }
   }
+
+  transpose(): Mat2 {
+    return new Mat2(new Vec2(this[0][0], this[1][0]), new Vec2(this[0][1], this[1][1]));
+  }
 }
 
 export class Mat3 extends Array<Vec3> {
@@ -37,6 +41,14 @@ export class Mat3 extends Array<Vec3> {
     } else {
       throw new Error("Invalid number of arguments");
     }
+  }
+
+  transpose(): Mat3 {
+    return new Mat3(
+      new Vec3(this[0][0], this[1][0], this[2][0]),
+      new Vec3(this[0][1], this[1][1], this[2][1]),
+      new Vec3(this[0][2], this[1][2], this[2][2])
+    );
   }
 }
 
@@ -58,6 +70,15 @@ export class Mat4 extends Array<Vec4> {
     } else {
       throw new Error("Invalid number of arguments");
     }
+  }
+
+  transpose(): Mat4 {
+    return new Mat4(
+      new Vec4(this[0][0], this[1][0], this[2][0], this[3][0]),
+      new Vec4(this[0][1], this[1][1], this[2][1], this[3][1]),
+      new Vec4(this[0][2], this[1][2], this[2][2], this[3][2]),
+      new Vec4(this[0][3], this[1][3], this[2][3], this[3][3])
+    );
   }
 }
 
