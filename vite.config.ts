@@ -8,6 +8,7 @@ const pages = {
     "2d-polygons-and-interpolation-part-1",
     "2d-polygons-and-interpolation-part-2",
     "colored-rotating-square",
+    "wireframe-boxes",
   ],
   examples: [
     "triangle",
