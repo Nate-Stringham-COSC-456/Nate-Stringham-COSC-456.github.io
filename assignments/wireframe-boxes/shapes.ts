@@ -1,4 +1,4 @@
-import { Vec3, Vec4 } from "../../src/vector";
+import { Vec4 } from "../../src/vector";
 
 const gl = WebGL2RenderingContext;
 
