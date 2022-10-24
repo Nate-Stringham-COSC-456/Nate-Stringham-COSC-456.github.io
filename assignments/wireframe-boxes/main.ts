@@ -1,7 +1,14 @@
 import { initShaders } from "../../src/init-shaders";
 import { flatten, Vec3 } from "../../src/vector";
-import { flattenColumnMajor, lookAt, perspectiveMatrix } from "../../src/matrix";
-import { colors, points, axes } from "./shapes";
+import {
+  flattenColumnMajor,
+  lookAt,
+  orthographic,
+  translationMatrix,
+  xRotationMatrix,
+  yRotationMatrix,
+} from "../../src/matrix";
+import { colors, points, axes, whiteCube, magentaCube } from "./shapes";
 import vertexShaderSource from "./main.vert";
 import fragmentShaderSource from "./main.frag";
 
@@ -38,12 +45,11 @@ gl.enableVertexAttribArray(aColor);
 
 const uModelView = gl.getUniformLocation(program, "uModelView");
 
-const eye = new Vec3(0.0, 0.0, 10.0);
-const at = new Vec3(0.0, 0.0, 0.0);
-const up = new Vec3(0.0, 1.0, 0.0);
+const eye = new Vec3(0, 0, 10);
+const at = new Vec3(0, 0, 0);
+const up = new Vec3(0, 1, 0);
 
-const modelView = lookAt(eye, at, up);
-gl.uniformMatrix4fv(uModelView, false, flattenColumnMajor(modelView));
+const worldToCamera = lookAt(eye, at, up);
 
 const uPerspective = gl.getUniformLocation(program, "uPerspective");
 
@@ -68,7 +74,18 @@ window.addEventListener("resize", resize);
 
 function render() {
   gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
+
+  const axisModelView = worldToCamera.multiply(xRotationMatrix(Math.PI / 6)).multiply(yRotationMatrix(Math.PI / 7));
+  gl.uniformMatrix4fv(uModelView, false, flattenColumnMajor(axisModelView));
   gl.drawArrays(axes.type, axes.start, axes.size);
+
+  const whiteCubeModelView = axisModelView.multiply(translationMatrix(1, 0, 0));
+  gl.uniformMatrix4fv(uModelView, false, flattenColumnMajor(whiteCubeModelView));
   gl.drawArrays(whiteCube.type, whiteCube.start, whiteCube.size);
+
+  const magentaCubeModelView = axisModelView
+    .multiply(translationMatrix(1, 1, 0))
+    .multiply(yRotationMatrix(Math.PI / 4));
+  gl.uniformMatrix4fv(uModelView, false, flattenColumnMajor(magentaCubeModelView));
   gl.drawArrays(magentaCube.type, magentaCube.start, magentaCube.size);
 }
