@@ -5,6 +5,10 @@ type nineNumbers = [number, number, number, number, number, number, number, numb
 type sixteenNumbers = [...fourNumbers, ...fourNumbers, ...fourNumbers, ...fourNumbers];
 
 export class Mat2 extends Array<Vec2> {
+  static get identity(): Mat2 {
+    return new Mat2(new Vec2(1, 0), new Vec2(0, 1));
+  }
+
   constructor(...args: [] | [Mat2] | [Vec2, Vec2] | fourNumbers) {
     if (args.length === 0) {
       super(new Vec2(), new Vec2());
@@ -22,9 +26,23 @@ export class Mat2 extends Array<Vec2> {
   transpose(): Mat2 {
     return new Mat2(new Vec2(this[0][0], this[1][0]), new Vec2(this[0][1], this[1][1]));
   }
+
+  multiply(other: Mat2): Mat2 {
+    const result = new Mat2();
+    for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < 2; j++) {
+        result[i][j] = this[i][0] * other[0][j] + this[i][1] * other[1][j];
+      }
+    }
+    return result;
+  }
 }
 
 export class Mat3 extends Array<Vec3> {
+  static get identity(): Mat3 {
+    return new Mat3(new Vec3(1, 0, 0), new Vec3(0, 1, 0), new Vec3(0, 0, 1));
+  }
+
   constructor(...args: [] | [Mat3] | [Vec3, Vec3, Vec3] | nineNumbers) {
     if (args.length === 0) {
       super(new Vec3(), new Vec3(), new Vec3());
@@ -50,9 +68,23 @@ export class Mat3 extends Array<Vec3> {
       new Vec3(this[0][2], this[1][2], this[2][2])
     );
   }
+
+  multiply(other: Mat3): Mat3 {
+    const result = new Mat3();
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        result[i][j] = this[i][0] * other[0][j] + this[i][1] * other[1][j] + this[i][2] * other[2][j];
+      }
+    }
+    return result;
+  }
 }
 
 export class Mat4 extends Array<Vec4> {
+  static get identity(): Mat4 {
+    return new Mat4(new Vec4(1, 0, 0, 0), new Vec4(0, 1, 0, 0), new Vec4(0, 0, 1, 0), new Vec4(0, 0, 0, 1));
+  }
+
   constructor(...args: [] | [Mat4] | [Vec4, Vec4, Vec4, Vec4] | sixteenNumbers) {
     if (args.length === 0) {
       super(new Vec4(), new Vec4(), new Vec4(), new Vec4());
@@ -79,6 +111,17 @@ export class Mat4 extends Array<Vec4> {
       new Vec4(this[0][2], this[1][2], this[2][2], this[3][2]),
       new Vec4(this[0][3], this[1][3], this[2][3], this[3][3])
     );
+  }
+
+  multiply(other: Mat4): Mat4 {
+    const result = new Mat4();
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        result[i][j] =
+          this[i][0] * other[0][j] + this[i][1] * other[1][j] + this[i][2] * other[2][j] + this[i][3] * other[3][j];
+      }
+    }
+    return result;
   }
 }
 
