@@ -15,7 +15,7 @@ export class Mat2 extends Array<Vec2> {
     } else if (args.length === 1) {
       super(new Vec2(args[0][0]), new Vec2(args[0][1]));
     } else if (args.length === 2) {
-      super(new Vec2(args[0]), new Vec2(args[1]));
+      super(args[0], args[1]);
     } else if (args.length === 4) {
       super(new Vec2(args[0], args[1]), new Vec2(args[2], args[3]));
     } else {
@@ -49,7 +49,7 @@ export class Mat3 extends Array<Vec3> {
     } else if (args.length === 1) {
       super(new Vec3(args[0][0]), new Vec3(args[0][1]), new Vec3(args[0][2]));
     } else if (args.length === 3) {
-      super(new Vec3(args[0]), new Vec3(args[1]), new Vec3(args[2]));
+      super(args[0], args[1], args[2]);
     } else if (args.length === 9) {
       super(
         new Vec3(args[0], args[1], args[2]),
@@ -91,7 +91,7 @@ export class Mat4 extends Array<Vec4> {
     } else if (args.length === 1) {
       super(new Vec4(args[0][0]), new Vec4(args[0][1]), new Vec4(args[0][2]), new Vec4(args[0][3]));
     } else if (args.length === 4) {
-      super(new Vec4(args[0]), new Vec4(args[1]), new Vec4(args[2]), new Vec4(args[3]));
+      super(args[0], args[1], args[2], args[3]);
     } else if (args.length === 16) {
       super(
         new Vec4(args[0], args[1], args[2], args[3]),
@@ -150,6 +150,39 @@ export function flattenColumnMajor(matrix: Mat2 | Mat3 | Mat4): Float32Array {
     }
   }
   return array;
+}
+
+/**
+ * generates a matrix that performs a rotation around the x axis
+ * @param theta the angle to rotate by in radians
+ * @returns a matrix that rotates by theta radians
+ */
+export function xRotationMatrix(theta: number): Mat4 {
+  const c = Math.cos(theta);
+  const s = Math.sin(theta);
+  return new Mat4(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1);
+}
+
+/**
+ * generates a matrix that performs a rotation around the y axis
+ * @param theta the angle to rotate by in radians
+ * @returns a matrix that rotates by theta radians
+ */
+export function yRotationMatrix(theta: number): Mat4 {
+  const c = Math.cos(theta);
+  const s = Math.sin(theta);
+  return new Mat4(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1);
+}
+
+/**
+ * generates a matrix that performs a rotation around the z axis
+ * @param theta the angle to rotate by in radians
+ * @returns a matrix that rotates by theta radians
+ */
+export function zRotationMatrix(theta: number): Mat4 {
+  const c = Math.cos(theta);
+  const s = Math.sin(theta);
+  return new Mat4(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 /**
