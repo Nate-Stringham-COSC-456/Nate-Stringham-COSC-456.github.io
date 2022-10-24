@@ -6,8 +6,6 @@ import vertexShaderSource from "./main.vert";
 import fragmentShaderSource from "./main.frag";
 
 const canvas = document.querySelector("canvas")!;
-canvas.width = Math.floor(canvas.clientWidth * window.devicePixelRatio);
-canvas.height = Math.floor(canvas.clientHeight * window.devicePixelRatio);
 
 const gl = canvas.getContext("webgl2")!;
 
@@ -15,7 +13,6 @@ if (gl == null) {
   throw new Error("WebGL2 not supported");
 }
 
-gl.viewport(0, 0, canvas.width, canvas.height);
 gl.enable(gl.DEPTH_TEST);
 gl.clearColor(0, 0, 0, 0);
 gl.enable(gl.CULL_FACE);
@@ -39,11 +36,7 @@ const aColor = gl.getAttribLocation(program, "aColor");
 gl.vertexAttribPointer(aColor, 4, gl.FLOAT, false, 0, 0);
 gl.enableVertexAttribArray(aColor);
 
-const uPerspective = gl.getUniformLocation(program, "uPerspective");
 const uModelView = gl.getUniformLocation(program, "uModelView");
-
-const perspective = perspectiveMatrix(Math.PI / 4, 1.0, 0.1, 100.0);
-gl.uniformMatrix4fv(uPerspective, false, flattenColumnMajor(perspective));
 
 const eye = new Vec3(0.0, 0.0, 10.0);
 const at = new Vec3(0.0, 0.0, 0.0);
@@ -52,4 +45,27 @@ const up = new Vec3(0.0, 1.0, 0.0);
 const modelView = lookAt(eye, at, up);
 gl.uniformMatrix4fv(uModelView, false, flattenColumnMajor(modelView));
 
-gl.drawArrays(axes.type, axes.start, axes.size);
+const uPerspective = gl.getUniformLocation(program, "uPerspective");
+
+function resize() {
+  const width = Math.floor(canvas.clientWidth * window.devicePixelRatio);
+  const height = Math.floor(canvas.clientHeight * window.devicePixelRatio);
+
+  canvas.width = width;
+  canvas.height = height;
+
+  gl.viewport(0, 0, width, height);
+
+  const perspective = perspectiveMatrix(Math.PI / 4, canvas.width / canvas.height, 0.1, 100.0);
+  gl.uniformMatrix4fv(uPerspective, false, flattenColumnMajor(perspective));
+  requestAnimationFrame(render);
+}
+
+resize();
+
+window.addEventListener("resize", resize);
+
+function render() {
+  gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
+  gl.drawArrays(axes.type, axes.start, axes.size);
+}
