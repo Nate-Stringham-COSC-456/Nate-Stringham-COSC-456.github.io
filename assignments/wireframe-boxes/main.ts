@@ -56,7 +56,8 @@ function resize() {
 
   gl.viewport(0, 0, width, height);
 
-  const perspective = perspectiveMatrix(Math.PI / 4, canvas.width / canvas.height, 0.1, 100.0);
+  const aspectRatio = width / height;
+  const perspective = orthographic(-3 * aspectRatio, 3 * aspectRatio, -3, 3, 5, 15);
   gl.uniformMatrix4fv(uPerspective, false, flattenColumnMajor(perspective));
   requestAnimationFrame(render);
 }

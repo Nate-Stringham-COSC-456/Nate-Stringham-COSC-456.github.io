@@ -134,6 +134,38 @@ export function lookAt(eye: Vec3, at: Vec3, up: Vec3): Mat4 {
 }
 
 /**
+ * generate a matrix that performs a orthographic projection
+ */
+export function orthographic(left: number, right: number, bottom: number, top: number, near: number, far: number) {
+  if (left == right) {
+    throw new Error("left and right cannot be equal");
+  }
+  if (bottom == top) {
+    throw new Error("bottom and top cannot be equal");
+  }
+  if (near == far) {
+    throw new Error("near and far cannot be equal");
+  }
+
+  const w = right - left;
+  const h = top - bottom;
+  const d = far - near;
+
+  const result = new Mat4();
+
+  result[0][0] = 2.0 / w;
+  result[1][1] = 2.0 / h;
+  result[2][2] = -2.0 / d;
+
+  result[0][3] = -(left + right) / w;
+  result[1][3] = -(top + bottom) / h;
+  result[2][3] = -(near + far) / d;
+  result[3][3] = 1.0;
+
+  return result;
+}
+
+/**
  * define a perspective projection matrix
  * @param fovy the vertical field of view in radians
  * @param aspect the aspect ratio of the viewport (width/height)
