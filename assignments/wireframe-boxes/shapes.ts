@@ -1,4 +1,4 @@
-import { Vec4 } from "../../src/vector";
+import { Vec3, Vec4 } from "../../src/vector";
 
 const gl = WebGL2RenderingContext;
 
@@ -28,9 +28,13 @@ export function loadShape(shape: Shape): LoadedShape {
   };
 }
 
+const darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
 const red = new Vec4(1, 0, 0, 1);
 const green = new Vec4(0, 1, 0, 1);
 const blue = new Vec4(0, 0, 1, 1);
+const white = darkMode ? new Vec4(1, 1, 1, 1) : new Vec4(0, 0, 0, 1);
+const magenta = new Vec4(1, 0, 1, 1);
 
 export const axes = loadShape({
   points: [
@@ -45,6 +49,29 @@ export const axes = loadShape({
   type: gl.LINES,
 });
 
-// export const wireCube = loadShape({ points: [], colors: [], type: gl.LINE_STRIP });
+const cubeVertexes = [
+  new Vec4(0.5, 0.5, 0.5, 1),
+  new Vec4(0.5, 0.5, -0.5, 1),
+  new Vec4(0.5, -0.5, 0.5, 1),
+  new Vec4(0.5, -0.5, -0.5, 1),
+  new Vec4(-0.5, 0.5, 0.5, 1),
+  new Vec4(-0.5, 0.5, -0.5, 1),
+  new Vec4(-0.5, -0.5, 0.5, 1),
+  new Vec4(-0.5, -0.5, -0.5, 1),
+];
+
+const wireCubeIndexes = [0, 1, 5, 1, 3, 7, 3, 2, 6, 2, 0, 4, 5, 7, 6, 4];
+
+export const whiteCube = loadShape({
+  points: wireCubeIndexes.map((i) => cubeVertexes[i]),
+  colors: new Array(wireCubeIndexes.length).fill(white),
+  type: gl.LINE_STRIP,
+});
+
+export const magentaCube = loadShape({
+  points: wireCubeIndexes.map((i) => cubeVertexes[i]),
+  colors: new Array(wireCubeIndexes.length).fill(magenta),
+  type: gl.LINE_STRIP,
+});
 
 // export const solidCube = loadShape({ points: [], colors: [], type: gl.TRIANGLES });

@@ -68,4 +68,6 @@ window.addEventListener("resize", resize);
 function render() {
   gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
   gl.drawArrays(axes.type, axes.start, axes.size);
+  gl.drawArrays(whiteCube.type, whiteCube.start, whiteCube.size);
+  gl.drawArrays(magentaCube.type, magentaCube.start, magentaCube.size);
 }
