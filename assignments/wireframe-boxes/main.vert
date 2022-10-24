@@ -9,11 +9,7 @@ uniform mat4 uModelView;
 out vec4 vColor;
 
 void main() {
-    // Move vertex to view
-    vec4 mvPosition = uModelView * vec4(aPosition, 1);
-
-    // Apply projection and send out
-    gl_Position = uPerspective * mvPosition;
+    gl_Position = uPerspective * uModelView * vec4(aPosition, 1);
 
     vColor = aColor;
 }
