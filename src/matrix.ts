@@ -83,6 +83,17 @@ export class Mat4 extends Array<Vec4> {
 }
 
 /**
+ * generate a matrix that performs a transformation in 3d space
+ * @param x the translation along x
+ * @param y the translation along y
+ * @param z the translation along z
+ * @returns a matrix that translates by (x, y, z)
+ */
+export function translationMatrix(x: number, y: number, z: number): Mat4 {
+  return new Mat4(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1);
+}
+
+/**
  * converts a matrix to a single Float32Array using column major order
  * @param matrix a matrix
  * @returns matrix as a single buffer in column major order
