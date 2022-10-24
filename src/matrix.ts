@@ -109,6 +109,13 @@ export function flattenColumnMajor(matrix: Mat2 | Mat3 | Mat4): Float32Array {
   return array;
 }
 
+/**
+ * define camera space in terms of camera position, target, and up vector
+ * @param eye the position of the camera
+ * @param at the position the camera is looking at
+ * @param up the up direction of the camera
+ * @returns a transformation matrix that transforms from world space to camera space
+ */
 export function lookAt(eye: Vec3, at: Vec3, up: Vec3): Mat4 {
   if (eye.equals(at)) {
     throw new Error("eye and at cannot be the same");
@@ -126,6 +133,14 @@ export function lookAt(eye: Vec3, at: Vec3, up: Vec3): Mat4 {
   );
 }
 
+/**
+ * define a perspective projection matrix
+ * @param fovy the vertical field of view in radians
+ * @param aspect the aspect ratio of the viewport (width/height)
+ * @param near the near clipping plane
+ * @param far the far clipping plane
+ * @returns a matrix that transforms from camera space to clip space
+ */
 export function perspectiveMatrix(fovy: number, aspect: number, near: number, far: number) {
   const f = 1.0 / Math.tan(fovy / 2);
   const d = far - near;
